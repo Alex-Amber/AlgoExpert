@@ -41,6 +41,15 @@ public:
             }
             cur = cur->children[ch];
         }
-        return cur->children.count(endSymbol);
+        return true;
     }
 };
+
+vector<bool> multiStringSearch(string bigString, vector<string> smallStrings) {
+    SuffixTrie trie(bigString);
+    vector<bool> res;
+    for (auto& str: smallStrings) {
+        res.push_back(trie.contains(str));
+    }
+    return res;
+}

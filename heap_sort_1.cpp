@@ -2,12 +2,30 @@
 
 using namespace std;
 
-void buildMaxHeap(vector<int>& array) {
-    
+void siftDown(vector<int>& heap, int currentIdx, int endIdx) {
+    int leftChildIdx = currentIdx * 2 + 1, rightChildIdx = currentIdx * 2 + 2;
+    while (leftChildIdx <= endIdx) {
+        if (heap[leftChildIdx] >= heap[currentIdx] && (rightChildIdx > endIdx || heap[leftChildIdx] >= heap[rightChildIdx])) {
+            swap(heap[leftChildIdx], heap[currentIdx]);
+            currentIdx = leftChildIdx;
+        } else if (rightChildIdx <= endIdx && heap[rightChildIdx] >= heap[currentIdx] && heap[rightChildIdx] >= heap[leftChildIdx]) {
+            swap(heap[rightChildIdx], heap[currentIdx]);
+            currentIdx = rightChildIdx;
+        } else {
+            break;
+        }
+        leftChildIdx = currentIdx * 2 + 1;
+        rightChildIdx = currentIdx * 2 + 2;
+    }
+    return;
 }
 
-void siftDown(vector<int>& heap, int current_idx, int end_idx) {
-    
+void buildMaxHeap(vector<int>& array) {
+    for (int currentIdx = array.size() - 1; currentIdx > 0; currentIdx--) {
+        int parentIdx = floor((currentIdx - 1) / 2);
+        siftDown(array, parentIdx, array.size() - 1);
+    }
+    return;
 }
 
 vector<int> heapSort(vector<int> array) {

@@ -36,9 +36,11 @@ public:
             setTail(referred);
         } else {
             if (table.size() == maxSize) {
+                table.erase(head->key);
                 remove(head);
             }
             Node *newNode = new Node(key, value);
+            table[key] = newNode;
             setTail(newNode);
         }
     }
